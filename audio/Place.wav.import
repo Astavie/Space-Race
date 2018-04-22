@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Place.wav-508cf1933b6b0928e7de7d9b0efee6d7.sample"
+
+[deps]
+
+source_file="res://audio/Place.wav"
+source_md5="89d46e3e6039ce0316072ff566caa2ba"
+
+dest_files=[ "res://.import/Place.wav-508cf1933b6b0928e7de7d9b0efee6d7.sample" ]
+dest_md5="379ffdb769a97de8a1f4f396e35319a4"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

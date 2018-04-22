@@ -1,0 +1,456 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://script/Hexes.gd" type="Script" id=1]
+[ext_resource path="res://tile/stars/stars.tres" type="TileSet" id=2]
+[ext_resource path="res://script/Stars.gd" type="Script" id=3]
+[ext_resource path="res://tile/planet/planet.tres" type="TileSet" id=4]
+[ext_resource path="res://tile/hex/hex.tres" type="TileSet" id=5]
+[ext_resource path="res://script/Camera.gd" type="Script" id=6]
+[ext_resource path="res://tile/HUD.png" type="Texture" id=7]
+[ext_resource path="res://tile/building/Mining Base.png" type="Texture" id=8]
+[ext_resource path="res://tile/building/Colony.png" type="Texture" id=9]
+[ext_resource path="res://tile/building/Homeworld.png" type="Texture" id=10]
+[ext_resource path="res://tile/Start.png" type="Texture" id=11]
+[ext_resource path="res://audio/Calm.ogg" type="AudioStream" id=12]
+[ext_resource path="res://audio/Place.wav" type="AudioStream" id=13]
+[ext_resource path="res://audio/Build.wav" type="AudioStream" id=14]
+[ext_resource path="res://audio/Nope.wav" type="AudioStream" id=15]
+[ext_resource path="res://audio/Move.wav" type="AudioStream" id=16]
+[ext_resource path="res://audio/Shoot.wav" type="AudioStream" id=17]
+[ext_resource path="res://audio/Teleport.wav" type="AudioStream" id=18]
+
+[node name="Node" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Z Index" ]
+
+[node name="Background" type="CanvasLayer" parent="." index="0"]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="Stars" type="TileMap" parent="Background" index="0"]
+
+mode = 0
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 64, 64 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray(  )
+script = ExtResource( 3 )
+
+[node name="Objects" type="TileMap" parent="." index="1"]
+
+position = Vector2( -64, -64 )
+z_index = -1
+mode = 0
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 92, 80 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 0
+cell_tile_origin = 0
+cell_y_sort = true
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray(  )
+_sections_unfolded = [ "Cell", "Collision", "Occluder", "Transform", "Z Index" ]
+
+[node name="Hexes" type="TileMap" parent="Objects" index="0"]
+
+visible = false
+mode = 0
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 92, 80 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 0
+cell_tile_origin = 0
+cell_y_sort = true
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray(  )
+_sections_unfolded = [ "Cell", "Collision", "Material", "Occluder", "Transform", "Visibility", "Z Index" ]
+
+[node name="Camera2D" type="Camera2D" parent="." index="2"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+script = ExtResource( 6 )
+_sections_unfolded = [ "Drag Margin", "Transform" ]
+
+[node name="Foreground" type="CanvasLayer" parent="." index="3"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="Debug" type="Label" parent="Foreground" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Info" type="Label" parent="Foreground" index="1"]
+
+visible = false
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -1024.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Grow Direction" ]
+
+[node name="Error" type="Label" parent="Foreground" index="2"]
+
+visible = false
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -512.0
+margin_top = 70.0
+margin_right = 512.0
+margin_bottom = 84.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Grow Direction" ]
+
+[node name="Menu" type="NinePatchRect" parent="Foreground" index="3"]
+
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -192.0
+margin_top = -109.0
+margin_right = 192.0
+margin_bottom = 107.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 7 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+_sections_unfolded = [ "Anchor", "Axis Stretch", "Margin", "Patch Margin", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="Foreground/Menu" index="0"]
+
+position = Vector2( 190, 59 )
+texture = ExtResource( 8 )
+
+[node name="Prev" type="Sprite" parent="Foreground/Menu" index="1"]
+
+position = Vector2( 70, 59 )
+scale = Vector2( 0.3125, 0.3125 )
+texture = ExtResource( 9 )
+
+[node name="Next" type="Sprite" parent="Foreground/Menu" index="2"]
+
+position = Vector2( 310, 59 )
+scale = Vector2( 0.3125, 0.3125 )
+texture = ExtResource( 10 )
+
+[node name="Tip" type="Label" parent="Foreground/Menu" index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 191.0
+margin_right = 377.0
+margin_bottom = 205.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Left click to confirm, right click to cancel"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Description" type="Label" parent="Foreground/Menu" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 20.0
+margin_top = 109.0
+margin_right = 360.0
+margin_bottom = 123.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Send your colonists to mine on an asteroid"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Costs" type="Label" parent="Foreground/Menu" index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 54.0
+margin_top = 133.0
+margin_right = 94.0
+margin_bottom = 147.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Costs:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Cost" type="Label" parent="Foreground/Menu" index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 110.0
+margin_top = 133.0
+margin_right = 186.0
+margin_bottom = 181.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "2 Wealth
+2 Colonists
+2 Titanium"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Gains" type="Label" parent="Foreground/Menu" index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 190.0
+margin_top = 133.0
+margin_right = 230.0
+margin_bottom = 147.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Gains:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Gain" type="Label" parent="Foreground/Menu" index="8"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 246.0
+margin_top = 133.0
+margin_right = 336.0
+margin_bottom = 181.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "+1 Wealth
++1 Plutonium
++1 Titanium"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Message" type="NinePatchRect" parent="Foreground" index="4"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -192.0
+margin_top = -109.0
+margin_right = 192.0
+margin_bottom = 107.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 7 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+_sections_unfolded = [ "Anchor", "Axis Stretch", "Margin", "Patch Margin", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="Foreground/Message" index="0"]
+
+position = Vector2( 192, 109 )
+texture = ExtResource( 11 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Music" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 12 )
+volume_db = -5.0
+autoplay = true
+mix_target = 0
+bus = "Master"
+
+[node name="Place" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = ExtResource( 13 )
+volume_db = -5.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Build" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 14 )
+volume_db = -10.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Nope" type="AudioStreamPlayer" parent="." index="7"]
+
+stream = ExtResource( 15 )
+volume_db = -5.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Move" type="AudioStreamPlayer" parent="." index="8"]
+
+stream = ExtResource( 16 )
+volume_db = -10.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Shoot" type="AudioStreamPlayer" parent="." index="9"]
+
+stream = ExtResource( 17 )
+volume_db = -10.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Teleport" type="AudioStreamPlayer" parent="." index="10"]
+
+stream = ExtResource( 18 )
+volume_db = -5.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+

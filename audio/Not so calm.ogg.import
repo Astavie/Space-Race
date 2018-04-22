@@ -1,0 +1,18 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Not so calm.ogg-e25fcf838d55c614c56ce91ed60581e9.oggstr"
+
+[deps]
+
+source_file="res://audio/Not so calm.ogg"
+source_md5="10a346f4a8808f70a1534e93fa0dc49d"
+
+dest_files=[ "res://.import/Not so calm.ogg-e25fcf838d55c614c56ce91ed60581e9.oggstr" ]
+dest_md5="8c7baa7b1d9a1ef0d93d6ff6e818c546"
+
+[params]
+
+loop=true
+loop_offset=0
